@@ -4,17 +4,21 @@ from flask_login import current_user
 from werkzeug.utils import redirect
 from prime_home import bp_prime_home
 from prime_admin.models import Branch, Registration
-from flask import request, jsonify
+from flask import request, jsonify, flash
 from app import mongo
 import pymongo
 from prime_admin.models_v2 import StudentV2
 from prime_admin.utils.date import format_utc_to_local
 from bson.objectid import ObjectId
+from app.auth.forms import SendUsAMessageForm
+from flask_mail import Mail, Message
 
 
 @bp_prime_home.route('/')
 def index():
-    return render_template('prime_home/index.html')
+    form = SendUsAMessageForm()
+
+    return render_template('prime_home/index.html', form=form)
 
 
 @bp_prime_home.route('/passers')
@@ -152,15 +156,19 @@ def fetch_datatables_passers():
     total_records_result = list(mongo.db.lms_registrations.aggregate(pipeline + [{"$count": "count"}]))
     total_records = total_records_result[0]["count"] if total_records_result else 0
 
-    sort_column = 'added_to_passers_date'
+    sort_column = 'score'
     sort_direction = pymongo.DESCENDING
+
     if (request.args.get('order[0][dir]') == 'asc'):
         sort_direction = pymongo.ASCENDING
 
-    if (int(request.args.get('order[0][column]')) == 0):
+    if (int(request.args.get('order[0][column]')) == 1):
         sort_column = 'lname'
-    elif (int(request.args.get('order[0][column]')) == 1):
+    elif (int(request.args.get('order[0][column]')) == 2):
         sort_column = 'score'
+    else:
+        sort_column = 'score'
+        sort_direction = pymongo.DESCENDING
     
     pipeline.append({
         "$sort": {sort_column: sort_direction}
@@ -225,7 +233,60 @@ def about():
 
 @bp_prime_home.route('/contact-us')
 def contact_us():
-    return render_template('prime_home/contact_us_page.html')
+    form = SendUsAMessageForm()
+
+    return render_template('prime_home/contact_us_page.html', form=form)
+
+@bp_prime_home.route('/send-us-a-message', methods=['GET', 'POST'])
+def send_us_a_message():
+    form = SendUsAMessageForm()
+    
+    if request.method == 'POST':
+        if not form.validate_on_submit():
+            for key, value in form.errors.items():
+                flash(str(key) + str(value), 'error')
+            return redirect(request.referrer)
+        
+        # Get form data
+        first_name = form.first_name.data
+        last_name = form.last_name.data
+        age = form.age.data
+        address = form.address.data
+        email = form.email.data
+        contact_number = form.contact_number.data
+        message = form.message.data
+        subscribe = form.subscribe.data
+
+        # Compose the email message
+        msg = Message(
+            subject="New Message from Contact Form",
+            sender=email,
+            recipients=["primekoreanlanguageandreviewce@gmail.com"],
+            body=f"""
+            You have received a new message from {first_name} {last_name}:
+
+            First Name: {first_name}
+            Last Name: {last_name}
+            Age: {age}
+            Address: {address}
+            Email: {email}
+            Contact Number: {contact_number}
+            Message: {message}
+
+            Subscription Request: {'Yes' if subscribe else 'No'}
+            """
+        )
+
+        # Send the email
+        try:
+            Mail.send(msg)
+            flash("Successfully sent the message!", 'success')
+        except Exception as e:
+            flash(f"Failed to send the message. Error: {e}", 'error')
+
+        return redirect(request.referrer)
+    
+    return redirect('/')
 
 
 @bp_prime_home.route('/pre-register', methods=["GET", 'POST'])

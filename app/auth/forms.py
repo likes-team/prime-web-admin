@@ -117,3 +117,14 @@ class RegisterForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Log in')
+
+class SendUsAMessageForm(FlaskForm):
+    first_name = StringField('First Name', validators=[DataRequired()])
+    last_name = StringField('Last Name', validators=[DataRequired()])
+    age = StringField('Age', validators=[DataRequired()])
+    address = StringField('Address', validators=[DataRequired()])
+    email = StringField('Email Address', validators=[DataRequired()])
+    contact_number = StringField('Contact Number', validators=[DataRequired()])
+    message = StringField('Message', validators=[DataRequired()])
+    subscribe = StringField('Subscribe')
+    submit = SubmitField('Submit')

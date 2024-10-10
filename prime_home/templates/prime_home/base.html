@@ -14,7 +14,7 @@
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('prime_home.static', filename='css/blocks.css') }}">
     <!-- Custom styles for this template -->
-    <link href="{{ url_for('prime_home.static', filename='css/style.css') }}" rel="stylesheet">
+    <link href="{{ url_for('prime_home.static', filename='css/style.css', v='10102024') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
     <link rel="stylesheet" href="{{ url_for('prime_home.static', filename='css/carousel.css') }}">
     <link rel="stylesheet" href="{{ url_for('prime_home.static', filename='css/org_chart.css') }}">
+    <link href="{{ url_for('bp_auth.static', filename='css/main_pro.css') }}" rel="stylesheet">
     <style>
         .branch {
             cursor: pointer
@@ -137,5 +138,28 @@
     <!-- Block Extra Script -->
     {% block extra_script %}{% endblock %}
 
+    <script type="text/javascript" src="{{ url_for('bp_auth.static', filename='js/main_pro.js') }}"></script>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div id="toast-container" class="toast-top-right">
+        {% for category, message in messages %}
+            {% if category == 'success' %}
+            <div class="toast toast-success" aria-live="polite">
+                <div class="toast-progress" style="width: 0%;"></div>
+                <div class="toast-title">Success!</div>
+                <div class="toast-message">{{ message }}</div>
+            </div>
+            {% elif category == 'error' %}
+            <div class="toast toast-error" aria-live="polite">
+                <div class="toast-progress" style="width: 0%;"></div>
+                <div class="toast-title">Login Failed!</div>
+                <div class="toast-message">{{ message }}</div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
 </body>
 </html>

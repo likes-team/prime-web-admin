@@ -67,27 +67,50 @@
             <div class="col-lg-6 col-xl-7">
                 <div class="px-4 px-xl-5 py-5">
                     <h2 class="mb-4 text-dark">Send us a message</h2>
-                    <form>
+                    <form method="POST" action="{{url_for('prime_home.send_us_a_message')}}">
+                        {{ form.csrf_token }}
                         <div class="gx-3 row">
                             <div class="col-md-6 mb-3">
-                                <input disabled type="text" class="form-control p-3" id="inputName" placeholder="Name" required> 
+                                <label>First Name</label>
+                                <input type="text" class="form-control p-3" name="first_name" required> 
                             </div>
                             <div class="col-md-6 mb-3"> 
-                                <input disabled type="email" class="form-control p-3" id="inputEmail" placeholder="Email" required> 
+                                <label>Last Name</label>
+                                <input type="text" class="form-control p-3" name="last_name" required> 
+                            </div>
+                        </div>
+                        <div class="gx-3 row">
+                            <div class="col-md-6 mb-3">
+                                <label>Age</label>
+                                <input type="number" class="form-control p-3" name="age" min="18" required> 
+                            </div>
+                            <div class="col-md-6 mb-3"> 
+                                <label>Address</label>
+                                <input type="text" class="form-control p-3" name="address" required> 
+                            </div>
+                        </div>
+                        <div class="gx-3 row">
+                            <div class="col-md-6 mb-3">
+                                <label>Email Address</label>
+                                <input type="email" class="form-control p-3" name="email" required> 
+                            </div>
+                            <div class="col-md-6 mb-3"> 
+                                <label>Contact Number</label>
+                                <input type="text" class="form-control p-3" name="contact_number" required> 
                             </div>
                         </div>
                         <div class="mb-3"> 
-                            <input disabled type="text" class="form-control p-3" id="inputSubject" placeholder="Subject" required> 
-                        </div>
-                        <div class="mb-3"> 
-                            <textarea disabled class="form-control p-3" rows="6" id="inputTextarea" placeholder="Message" required></textarea> 
+                            <label>Message</label>
+                            <textarea class="form-control p-3" rows="6" name="message" required></textarea> 
                         </div>
                         <div class="form-check mb-4">
-                            <input disabled type="checkbox" class="form-check-input" id="exampleCheck1"/>
-                            <label class="form-check-label" for="exampleCheck1">I would also like to subscribe to weekly newsletter</label>
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" name="subscribe" value="Yes"/>
+                                I would also like to subscribe to weekly newsletter
+                            </label>
                         </div>                                     
                         <div class="text-end">
-                            <button disabled type="submit" class="btn btn-primary pe-4 ps-4 rounded-pill">
+                            <button type="submit" class="btn btn-primary pe-4 ps-4 rounded-pill">
                                 <span>Submit</span>
                             </button>
                         </div>                                     

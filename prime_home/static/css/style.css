@@ -67,3 +67,21 @@
 .text-favorite {
     color: rgb(0, 97, 168) !important;
 }
+
+.background-korea-spring {
+    background-image: url(https://primeklcbucket.s3.ap-southeast-1.amazonaws.com/landing_page/korea-spring.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #00000085;
+    background-blend-mode: color;
+}
+
+.background-korea-autumn {
+    background-image: url(https://primeklcbucket.s3.ap-southeast-1.amazonaws.com/landing_page/korea-autum.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #00000085;
+    background-blend-mode: color;
+}
