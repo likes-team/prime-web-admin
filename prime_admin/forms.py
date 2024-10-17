@@ -427,3 +427,20 @@ class RegistrationForm(FlaskForm):
     thru = StringField()
     reference_no = StringField()
     payment_method = StringField()
+
+class OurTestimoniesEditForm(AdminEditForm):
+    
+    __heading__ = "Edit Our Testimonies"
+
+    title = AdminField(label="Title", validators=[DataRequired()])
+    description = AdminField(label="Description", type="textarea", validators=[DataRequired()])
+    image = AdminField(label="Image", type="image_with_preview", validators=[DataRequired()])
+    oldimage = AdminField(label="Old Image", type="hidden")
+
+    @property
+    def fields(self):
+        return [
+            [self.title, self.description],
+            [self.image],
+            [self.oldimage],
+        ]

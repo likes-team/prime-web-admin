@@ -39,3 +39,6 @@ from .settings.examination import (
 from .settings import (
     dt_orientators_settings
 )
+from .pages import (
+    dt_our_testimonies
+)

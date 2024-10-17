@@ -39,7 +39,7 @@
         </div>
     </div>
     <form action="{{ url_for(EDIT_OPTIONS['update_url'], oid=OID) }}" id="edit_form"
-          class="needs-validation" method="POST" novalidate>
+          class="needs-validation" method="POST" novalidate enctype="multipart/form-data">
         {{ FORM.csrf_token }}
         <div class="main-card mb-3 card">
             <div class="card-body">
@@ -112,6 +112,63 @@
                                 <label class="custom-control-label" for="{{ field.name }}">{{ field.label }}</label></div>
                                 </div>
                             </div>
+                        {% elif field.type == 'textarea' %}
+                            <div class="col-md-{{ EDIT_OPTIONS['fields_sizes'][row_counter.index-1] }} mb-3">
+                                <label for="{{ field.name }}">{{ field.label }}</label>
+                                
+                                <textarea
+                                    style="font-weight: bold;" 
+                                    type="{{ field.type }}"
+                                    class="form-control {% if field.required %}input_required{% endif %}" 
+                                    id="{{ field.name }}"
+                                    name="{{ field.name }}"
+                                    placeholder="{{ field.placeholder }}"
+                                    rows="10" 
+                                    {% if field.required %}required{% endif %} 
+                                    {% if field.readonly %}readonly{% endif %}
+                                >{% if not field.data == None %}{{field.data}}{% endif %}</textarea>
+
+                                <div id="{{field.name}}-valid-feedback" class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div id="{{field.name}}-invalid-feedback" class="invalid-feedback">
+                                    Please provide a valid {{ field.label }}
+                                </div>
+                            </div>
+                        {% elif field.type == 'image_with_preview' %}
+                            <div class="col-md-{{ EDIT_OPTIONS['fields_sizes'][row_counter.index-1] }} mb-3 js-image-container">
+                                <label for="{{ field.name }}">{{ field.label }}</label>
+                                
+                                <input
+                                    style="font-weight: bold;" 
+                                    type="file"
+                                    class="form-control {% if field.required %}input_required{% endif %} js-image-file" 
+                                    id="{{ field.name }}"
+                                    name="{{ field.name }}"
+                                    placeholder="{{ field.placeholder }}"
+                                    {% if field.required %}required{% endif %} 
+                                    {% if field.readonly %}readonly{% endif %}
+                                >
+                                <div class="text-center mt-3" style="height: 200px;">
+                                    <img src="{% if not field.data == None %}{{field.data}}{% endif %}" style="height: 100%;" class="js-image-preview" accept="image/*">
+                                </div>
+
+                                <div id="{{field.name}}-valid-feedback" class="valid-feedback">
+                                    Looks good!
+                                </div>
+                                <div id="{{field.name}}-invalid-feedback" class="invalid-feedback">
+                                    Please provide a valid {{ field.label }}
+                                </div>
+                            </div>
+                        {% elif field.type == 'hidden' %}
+                            <div class="col-md-{{ EDIT_OPTIONS['fields_sizes'][row_counter.index-1] }} mb-3 js-image-container" style="display: none;">
+                                <input
+                                    type="hidden"
+                                    id="{{ field.name }}"
+                                    name="{{ field.name }}"
+                                    value="{% if not field.data == None %}{{field.data}}{% endif %}"
+                                >
+                            </div>
                         {% else %}
                         <div class="col-md-{{ EDIT_OPTIONS['fields_sizes'][row_counter.index-1] }} mb-3">
                             <label for="{{ field.name }}">{{ field.label }}</label>
@@ -173,6 +230,25 @@
             });
             }, false);
             })();
+
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var imageFileInput = document.querySelector('.js-image-file');
+                        
+                        imageFileInput.addEventListener('change', function () {
+                            var file = this.files[0];
+                            var container = this.closest('.js-image-container');
+                            
+                            if (file) {
+                                var reader = new FileReader();
+                                reader.onload = function (e) {
+                                    var imagePreview = container.querySelector('.js-image-preview');
+                                    imagePreview.src = e.target.result;
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        });
+                    });
+
                 </script>
             </div>
         </div>

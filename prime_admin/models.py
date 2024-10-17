@@ -868,3 +868,23 @@ class Settings(Admin):
     __amdescription__ = 'Buy Items'
     __amicon__ = 'pe-7s-calculator'
     __view_url__ = 'lms.buy_items'
+
+class OurTestimony(Base, Admin):
+    meta = {
+        'collection': 'lms_our_testimonies',
+        'strict': False,
+    }
+
+    __tablename__ = 'lms_our_testimonies'
+    __amname__ = 'our_testimonies'
+    __amdescription__ = 'Our Testimonies'
+    __amicon__ = 'pe-7s-file'
+    __view_url__ = 'lms.pages_home'
+
+    title = db.StringField()
+    description = db.StringField()
+    image = db.StringField()
+
+    @property
+    def oldimage(self):
+        return self.image

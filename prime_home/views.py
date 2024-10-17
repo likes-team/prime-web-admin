@@ -29,7 +29,9 @@ app = create_app(config_name)
 def index():
     form = SendUsAMessageForm()
 
-    return render_template('prime_home/index.html', form=form)
+    our_testimonies = list(mongo.db.lms_our_testimonies.find())
+
+    return render_template('prime_home/index.html', form=form,our_testimonies=our_testimonies)
 
 
 @bp_prime_home.route('/passers')

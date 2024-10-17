@@ -68,6 +68,16 @@
 
     <script>
         $(document).ready(function (){
+            $("#nav_services").click(function (){
+                $('html, body').animate({
+                    scrollTop: $("#services_section").offset().top
+                }, 2000);
+            });
+            $("#nav_testimonies").click(function (){
+                $('html, body').animate({
+                    scrollTop: $("#testimonies").offset().top
+                }, 2000);
+            });
             $("#nav_contact_us").click(function (){
                 $('html, body').animate({
                     scrollTop: $("#div_contact_us_section").offset().top

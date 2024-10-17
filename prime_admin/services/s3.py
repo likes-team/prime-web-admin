@@ -11,7 +11,7 @@ SESSION = boto3.Session(
 )
 
 
-def upload_file(file, file_name):
+def upload_file(file, file_name, folder_name="cash_flow/"):
     """Upload a file to an S3 bucket
 
     :param file_name: File to upload
@@ -26,7 +26,7 @@ def upload_file(file, file_name):
     bucket = s3_client.Bucket(bucket_name)
 
     try:
-        file_path = "cash_flow/{}".format(file_name)
+        file_path = folder_name + "{}".format(file_name)
         bucket.Object(file_path).put(Body=file)
         object_url = "https://primeklcbucket.s3.ap-southeast-1.amazonaws.com/{}".format(
             file_path
@@ -35,3 +35,26 @@ def upload_file(file, file_name):
     except ClientError as e:
         logging.error(e)
         return None
+
+def delete_file(file_name, folder_name="cash_flow/"):
+    """Delete a file from an S3 bucket
+
+    :param file_name: File name to delete
+    :param folder_name: Folder where the file is located
+    :return: True if the file was deleted, else False
+    """
+    s3_client = SESSION.resource("s3")
+    bucket_name = "primeklcbucket"
+    bucket = s3_client.Bucket(bucket_name)
+
+    try:
+        # Construct the file path
+        file_path = folder_name + "{}".format(file_name)
+        
+        # Delete the file
+        bucket.Object(file_path).delete()
+        
+        return True
+    except ClientError as e:
+        logging.error(e)
+        return False

@@ -5,86 +5,25 @@ id="testimonies" style="background-color: rgb(0 97 168 / 20%);">
     
     <div data-aos="fade-right" id="carousel8" class="carousel slide" data-ride="carousel" data-interval="3000">
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="align-items-center row">
-                    <div class="col-lg-4 pb-3 pt-3 text-center d-flex align-items-center overflow-hidden" style="height:400px;">
-                        <img src="{{url_for('prime_home.static', filename='img/proof_of_gallery.jpg')}}" class="img-fluid">
-                    </div>
+            {% for our_testimony in our_testimonies %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <div class="align-items-center row">
+                        <div class="col-lg-4 pb-3 pt-3 text-center d-flex align-items-center overflow-hidden" style="height:400px;">
+                            <img src="{{ our_testimony['image'] }}" class="img-fluid">
+                        </div>
 
-                    <div class="col-lg-8 pb-3 pt-3">
-                        <h3 class="text-dark">Proof of Success</h3>
-                        <p class="font-weight-light mb-0">At Prime KLC, we are honored to share the inspiring success stories of our students who have undergone our Korean language training programs. Their achievements serve as powerful proof of the effectiveness of our programs and our unwavering commitment to assisting Filipinos in their journey to work as factory workers in South Korea. Many of our students have not only passed the rigorous EPS-TOPIK exam but have also secured employment with highly regarded Korean employers, solidifying their success and opening doors to a brighter future.</p>
+                        <div class="col-lg-8 pb-3 pt-3">
+                            <h3 class="text-dark">{{ our_testimony['title'] }}</h3>
+                            <p class="font-weight-light mb-0">{{ our_testimony['description'].replace('\n', '<br>') | safe }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="carousel-item">
-                <div class="align-items-center row">
-                    <div class="col-lg-4 pb-3 pt-3 text-center d-flex align-items-center overflow-hidden" style="height:400px;">
-                        <img src="{{url_for('prime_home.static', filename='img/orientation_1.jpg')}}" class="img-fluid">
-                    </div>
-
-                    <div class="col-lg-8 pb-3 pt-3">
-                        <h3 class="text-dark">Orientation</h3>
-                        <p class="font-weight-light mb-0">To ensure our clients are well-prepared and equipped with essential knowledge, Prime Korean Language and Review Center Incorporated conducts comprehensive orientations. During these orientations, we emphasize the pivotal role of the Korean language as a key requirement for employment in South Korea. It is important to note that Prime KLC is not a recruitment agency but a dedicated provider of Korean language tutorial services. Our goal is to guide and support our clients on their language learning journey, enabling them to successfully pass the EPS-TOPIK exam. We also inform our clients that only the Department of Migrant Workers (DMW) has the authority to facilitate their departure to South Korea. Through our orientations, we provide step-by-step guidance on the application process for working in South Korea, empowering our clients with the necessary information to navigate the journey ahead.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="align-items-center row">
-                    <div class="col-lg-4 pb-3 pt-3 text-center d-flex align-items-center overflow-hidden" style="height:400px;">
-                        <img src="{{url_for('prime_home.static', filename='img/actualclass_01.jpg')}}" class="img-fluid">
-                    </div>
-
-                    <div class="col-lg-8 pb-3 pt-3">
-                        <h3 class="text-dark">Actual Class</h3>
-                        <p class="font-weight-light mb-0">At Prime KLC, our actual classes are meticulously designed to provide our students with ample time and comprehensive training to master the Korean language. Our curriculum encompasses 10 days of basic Korean language training, followed by 7 days of intermediate training and 7 days of advanced training. Additionally, we offer a dedicated 1-month review period leading up to the e-EPS-TOPIK exam. What sets us apart is that even after the completion of regular classes and reviews, we provide our students with lifetime unlimited sit-ins, allowing them to continue refining their language skills until they successfully pass the EPS-TOPIK exam and secure employment in South Korea. This unparalleled level of support is our unwavering commitment to our students' success, ensuring their journey is filled with opportunities for growth without any additional charges.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="align-items-center row">
-                    <div class="col-lg-4 pb-3 pt-3 text-center d-flex align-items-center overflow-hidden" style="height:400px;">
-                        <img src="{{url_for('prime_home.static', filename='img/graduation_01.jpeg')}}" class="img-fluid">
-                    </div>
-
-                    <div class="col-lg-8 pb-3 pt-3">
-                        <h3 class="text-dark">Graduation</h3>
-                        <p class="font-weight-light mb-0">We take immense pride in celebrating the achievements of our students upon successful completion of their Korean language training. As a symbol of their dedication and hard work, we award certificates to all our students. Furthermore, we recognize and honor the exceptional performance of our top scorers by presenting them with awards and recognition, highlighting their outstanding accomplishments.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="align-items-center row">
-                    <div class="col-lg-4 pb-3 pt-3 text-center d-flex align-items-center overflow-hidden" style="height:400px;">
-                        <img src="{{url_for('prime_home.static', filename='img/skilltest_05.jpeg')}}" class="img-fluid">
-                    </div>
-
-                    <div class="col-lg-8 pb-3 pt-3">
-                        <h3 class="text-dark">Skill Test</h3>
-                        <p class="font-weight-light mb-0">To further prepare our students for success, Prime KLC conducts specialized skill test training in collaboration with HRD Korea. This training, which takes place after passing the EPS-TOPIK exam, focuses on honing practical skills. Through simulated interviews with teachers/instructors and intensive practice sessions, our students develop the necessary expertise and confidence to excel in the skill test. This comprehensive preparation ensures they are well-equipped to face any challenge that comes their way.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="align-items-center row">
-                    <div class="col-lg-4 pb-3 pt-3 text-center d-flex align-items-center overflow-hidden" style="height:400px;">
-                        <img src="{{url_for('prime_home.static', filename='img/departure_1.jpg')}}" class="img-fluid">
-                    </div>
-
-                    <div class="col-lg-8 pb-3 pt-3">
-                        <h3 class="text-dark">Departure in South Korea</h3>
-                        <p class="font-weight-light mb-0">Understanding that financial constraints may hinder some students, Prime KLC provides valuable financial assistance to support them until they reach South Korea. We offer a comprehensive financial support package ranging from 50,000 to 70,000 pesos. This assistance can be used to cover various expenses, including requirements, processing fees, airline tickets, and a much-needed allowance during their stay in South Korea. Our aim is to alleviate the financial burden and provide a smooth transition for our students, empowering them to embark on their journey with confidence and peace of mind.</p>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
         <ol class="carousel-indicators position-relative">
-            <li data-target="#carousel8" data-slide-to="0" class="active primary-color" id="div_proof_of_gallery"></li>
-            <li data-target="#carousel8" data-slide-to="1" class="primary-color" id="div_orientation"></li>
-            <li data-target="#carousel8" data-slide-to="2" class="primary-color" id="div_actual_class"></li>
-            <li data-target="#carousel8" data-slide-to="3" class="primary-color" id="div_graduation"></li>
-            <li data-target="#carousel8" data-slide-to="4" class="primary-color" id="div_skill_test"></li>
-            <li data-target="#carousel8" data-slide-to="5" class="primary-color" id="div_departure"></li>
+            {% for our_testimony in our_testimonies %}
+                <li data-target="#carousel8" data-slide-to="{{ loop.index0 }}" class="{% if loop.first %}active{% endif %} primary-color"></li>
+            {% endfor %}
         </ol>
     </div>
     <div class="pb-4 pt-4 text-center">

@@ -247,3 +247,16 @@ class StudentV2(Document):
             return True
         else:
             return False
+
+class OurTestimoniesV2(Document):
+    def __init__(self, document):
+        super().__init__(document)
+        
+    def get_title(self):
+        return self.document.get('title')
+        
+    def get_description(self):
+        return self.document.get('description')
+        
+    def get_image(self):
+        return self.document.get('image')
