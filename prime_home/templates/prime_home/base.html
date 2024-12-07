@@ -162,6 +162,50 @@
             });
         }); // document.ready
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var userInteracted = false;
+
+            // Function to handle intersection changes
+            function handleIntersection(entries, observer) {
+                entries.forEach(function (entry) {
+                    var video = entry.target;
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                        // Video is at least 50% visible
+                        if (userInteracted) {
+                            video.muted = false; // Unmute the video
+                        }
+                        video.play().catch(function (error) {
+                            console.log('Play prevented:', error);
+                        });
+                    } else {
+                        video.pause();
+                    }
+                });
+            }
+
+            // Create an IntersectionObserver instance
+            var observer = new IntersectionObserver(handleIntersection, {
+                threshold: [0, 0.5, 1] // Thresholds at 0%, 50%, and 100%
+            });
+
+            // Select all elements with the desired class
+            var videos = document.querySelectorAll('.video-observe');
+
+            // Observe each video element
+            videos.forEach(function (video) {
+                observer.observe(video);
+            });
+
+            // Listen for any user interaction
+            ['click', 'scroll', 'keydown', 'touchstart'].forEach(function (event) {
+                window.addEventListener(event, function () {
+                    userInteracted = true;
+                }, { once: true }); // Only need to detect the first interaction
+            });
+        });
+
+    </script>
     <!-- Block Extra Script -->
     {% block extra_script %}{% endblock %}
 

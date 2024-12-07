@@ -48,7 +48,18 @@
                         <div class="carousel-item {% if loop.first %}active{% endif %}">
                             <div class="align-items-center row">
                                 <div class="col-lg-12 pb-3 pt-3 text-center">
-                                    <video controls autoplay muted style="max-width: 100%;height: auto;">
+                                    <video class="video-observe" controls autoplay muted style="max-width: 100%;height: auto;">
+                                        <source src="{{testimonial.deployment_information.tarp_photo}}" type="video/mp4">
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if testimonial.deployment_information.tarp_photo %}
+                        <div class="carousel-item">
+                            <div class="align-items-center row">
+                                <div class="col-lg-12 pb-3 pt-3 text-center">
+                                    <video class="video-observe" controls autoplay muted style="max-width: 100%;height: auto;">
                                         <source src="{{testimonial.deployment_information.tarp_photo}}" type="video/mp4">
                                     </video>
                                 </div>
@@ -61,6 +72,9 @@
                 {% for testimonial in testimonials %}
                     {% if testimonial.deployment_information.tarp_photo %}
                         <li data-target="#carousel77" data-slide-to="{{ loop.index0 }}" class="{% if loop.first %}active{% endif %} primary-color2"></li>
+                    {% endif %}
+                    {% if testimonial.deployment_information.tarp_photo %}
+                        <li data-target="#carousel77" data-slide-to="{{ loop.index0 }}" class="primary-color2"></li>
                     {% endif %}
                 {% endfor %}
             </ol>
